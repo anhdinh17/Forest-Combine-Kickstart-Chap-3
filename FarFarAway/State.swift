@@ -1,7 +1,12 @@
 public class State {
-  @Published public private(set) var model = Model()
-  
-  public init(){}
+    @Published private var model = Model()
+    @Published public private(set) var value = 0
+    
+    public init(){
+        $model
+            .map(\.value)
+            .assign(to: &$value)
+    }
 }
 
 extension State {

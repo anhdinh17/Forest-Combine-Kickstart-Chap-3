@@ -1,7 +1,7 @@
-public struct Model {
-  public let value: Int
-  
-  init() { value = 0 }
+struct Model {
+    let value: Int
+    
+    init() { value = 0 }
 }
 
 extension Model {
