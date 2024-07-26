@@ -1,8 +1,16 @@
-public class State: NSObject {
+// Name the Notification
+public let valueUpdate = Notification.Name(rawValue: "valueUpdate")
+
+public class State {
     private var model = Model() {
-        willSet { willChangeValue(for: \.value) }
-        didSet { didChangeValue(for: \.value) }
+        didSet {
+            // Post a Notification when there's a change of "model"
+            NotificationCenter.default.post(Notification(name: valueUpdate,
+                                                         object: self))
+        }
     }
+    
+    public init() {}
 }
 
 extension State {

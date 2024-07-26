@@ -11,11 +11,19 @@ class Link {
 
 extension Link {
     func contentsSubscription() {
-        state
-            // Using KVO publisher
-            .publisher(for: \.value)
-            .dropFirst()
-            .assignDescription(asOptionalTo: &$contents)
+        // Receive the Notificatioin from State class
+        NotificationCenter.default
+            // Using Combine to ask for a Publisher
+            .publisher(for: valueUpdate,
+                       object: state)
+            // .publisher above publishes a Notification
+            // cast it down to State type
+            // Till this point, .compactMap will publish a State object
+            .compactMap { notification in
+                notification.object as? State
+            }
+            .map(\.value) // Publish Int
+            .assignDescription(asOptionalTo: &$contents) // Subscriber
     }
 }
 
