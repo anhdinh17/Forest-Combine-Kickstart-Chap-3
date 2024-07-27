@@ -1,24 +1,30 @@
-// Name the Notification
-public let valueUpdate = Notification.Name(rawValue: "valueUpdate")
+import Combine
 
 public class State {
     private var model = Model() {
         didSet {
-            // Post a Notification when there's a change of "model"
-            NotificationCenter.default.post(Notification(name: valueUpdate,
-                                                         object: self))
+            // publish changes
+            subject.send(model.value)
         }
     }
+    
+    // Create a publisher with SUBJECT way
+    // It has initial value of 0 - it's a MUST to have initial value
+    public var subject = CurrentValueSubject<Int, Never>(0)
+    
+    /** ---NOTE---
+     - Using PassthroughSubject
+     - It doens't have current value, which is initial value.
+     - It only publishes the change, not current value. So when we run the app, it doesn't
+     publish any initial value => "contents" in Link will receive nothing from state.subject
+     => "contents" is ... initially.
+     */
+    //public var subject = PassthroughSubject<Int, Never>()
     
     public init() {}
 }
 
 extension State {
-    // Making value observable
-    @objc dynamic public var value: Int {
-        model.value
-    }
-    
     public func next() {
         model = model.next
     }
