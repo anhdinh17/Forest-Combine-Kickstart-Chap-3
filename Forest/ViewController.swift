@@ -8,7 +8,7 @@ class ViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    labelSubscription().store(in: &cancellables)
+    //labelSubscription().store(in: &cancellables)
   }
   
   @IBAction private func next(_ sender: UIButton) {
@@ -17,8 +17,8 @@ class ViewController: UIViewController {
 }
 
 extension ViewController {
-  private func labelSubscription() -> AnyCancellable {
-    link.$contents
-      .assign(to: \.text, on: label)
-  }
+//  private func labelSubscription() -> AnyCancellable {
+//    link.$contents
+//      .assign(to: \.text, on: label)
+//  }
 }
