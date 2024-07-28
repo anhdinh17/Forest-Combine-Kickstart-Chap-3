@@ -11,13 +11,7 @@ class Link {
 
 extension Link {
     func contentsSubscription() {
-        // Listen to state.subject
-        // Initial value of subject is 0
-        state
-            .objectWillChange
-            .map { [state] _ in
-                state.value
-            }
+        state.valuePublisher // Subscribe to valuePublisher
             .assignDescription(asOptionalTo: &$contents)
     }
 }
