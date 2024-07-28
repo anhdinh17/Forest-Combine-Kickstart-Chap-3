@@ -14,11 +14,9 @@ extension Link {
         // Listen to state.subject
         // Initial value of subject is 0
         state
-            .subject
-            // In this case, .subject published nothing (Void)
-            // .map to make this a Publisher of Int
-            .map{ [weak self] _ in
-                self?.state.value ?? 0
+            .objectWillChange
+            .map { [state] _ in
+                state.value
             }
             .assignDescription(asOptionalTo: &$contents)
     }

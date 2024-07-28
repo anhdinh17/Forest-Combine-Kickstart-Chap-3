@@ -1,12 +1,7 @@
 import Combine
 
-public class State {
-    private var model = Model() {
-        didSet {
-            // publish changes
-            subject.send()
-        }
-    }
+public class State: ObservableObject {
+    @Published private var model = Model()
     
     // Create a publisher with SUBJECT way
     // It has initial value of 0 - it's a MUST to have initial value
@@ -19,7 +14,7 @@ public class State {
      publish any initial value => "contents" in Link will receive nothing from state.subject
      => "contents" is ... initially.
      */
-    public var subject = PassthroughSubject<Void, Never>()
+    //public var subject = PassthroughSubject<Void, Never>()
     
     public init() {}
 }
